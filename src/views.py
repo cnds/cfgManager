@@ -1,0 +1,17 @@
+from flask import jsonify
+from src.models import DConfig
+from src import app
+
+
+@app.route('/configs')
+def configuration():
+    rs = DConfig.query.all()
+    configs = [
+        {
+            'name': i.name,
+            'value': i.value,
+            'value_type': i.value_type,
+            'description': i.description
+        }
+        for i in rs]
+    return jsonify(configs)
