@@ -21,4 +21,5 @@ def configuration():
             'description': i.description
         }
         for i in rs]
-    return render_template('index.html', configs=configs)
+
+    return render_template('index.html', configs=configs, dbs=sorted(db_binds))
