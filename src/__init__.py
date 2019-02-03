@@ -1,8 +1,8 @@
 from flask import Flask
-
+from config import config
 from flask_sqlalchemy import SQLAlchemy
 
-from config import config
+app = Flask(__name__)
 
 
 class Storage(SQLAlchemy):
@@ -15,14 +15,13 @@ class Storage(SQLAlchemy):
         if bind_key in self._sessions:
             return self._sessions[bind_key]
 
-        engine = self.create_engine(app.config['SQLALCHEMY_BINDS'][bind_key], encoding='utf8')
+        engine = self.create_engine(app.config['SQLALCHEMY_BINDS'][bind_key])
         session = self.sessionmaker(engine)()
         self._sessions[bind_key] = session
 
         return session
 
 
-app = Flask(__name__)
 db = Storage()
 
 
